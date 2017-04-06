@@ -67,22 +67,23 @@ class WhackSlot: SKNode {
       charNode.name = "charEvil"
     }
     
+    // The duration required to take for penguin to show itself
+    let appearDuration = RandomDouble(min: 0.05, max: 0.25)
+    
     if let moveUpMudEffect = SKEmitterNode(fileNamed: "MyParticle") {
       moveUpMudEffect.position = charNode.position
-      moveUpMudEffect.run(SKAction.moveBy(x: 0, y: 100, duration: 0.05))
+      moveUpMudEffect.run(SKAction.moveBy(x: 0, y: 100, duration: appearDuration))
       moveUpMudEffect.zPosition = 1
       addChild(moveUpMudEffect)
     }
     
     // Move penguin up to make it visible
-    charNode.run(SKAction.moveBy(x: 0, y: 80, duration: 0.05))
+    charNode.run(SKAction.moveBy(x: 0, y: 80, duration: appearDuration))
     
     // Hide penguin after hideTime * 3.5
     DispatchQueue.main.asyncAfter(deadline: .now() + hideTime * 3.5) { [unowned self] in
       self.hide()
     }
-    
-
   }
   
   /* Hide penguin */
@@ -93,8 +94,11 @@ class WhackSlot: SKNode {
     // Now the penguin is not visible
     isVisible = false
     
+    // Time required for penguin to hide itself.
+    let hideDuration = RandomDouble(min: 0.05, max: 0.25)
+    
     // Move penguin down to hide it
-    charNode.run(SKAction.moveBy(x: 0, y: -80, duration: 0.05))
+    charNode.run(SKAction.moveBy(x: 0, y: -80, duration: hideDuration))
   }
   
   /* Hit penguin */
